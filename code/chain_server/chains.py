@@ -33,6 +33,9 @@ import typing
 import requests
 import re
 
+from FER import get_emotion_from_face
+import cv2
+
 from langchain.text_splitter import SentenceTransformersTokenTextSplitter
 from llama_index.embeddings import LangchainEmbedding
 from llama_index import (
@@ -214,6 +217,15 @@ def llm_chain_streaming(
 ) -> Generator[str, None, None]:
     """Execute a simple LLM chain using the components defined above."""
     set_service_context(inference_mode, nvcf_model_id, nim_model_ip, num_tokens, temp, top_p, freq_pen)
+
+    # Initialize webcam
+    cap = cv2.VideoCapture(0)
+    ret, frame = cap.read()
+    if ret:
+        # Get the emotion from the frame
+        emotion = get_emotion_from_face(frame)
+        context += f" The user appears to be feeling {emotion}."
+    cap.release()
 
     if inference_mode == "local":
         if "nvidia" in local_model_id:
