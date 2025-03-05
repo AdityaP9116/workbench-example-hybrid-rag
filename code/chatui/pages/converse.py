@@ -36,9 +36,9 @@ from chatui.pages import utils
 
 _LOGGER = logging.getLogger(__name__)
 PATH = "/"
-TITLE = "Hybrid RAG: Chat UI"
-OUTPUT_TOKENS = 250
-MAX_DOCS = 5
+TITLE = "Psychiatric Evaluation AI"
+OUTPUT_TOKENS = 300
+MAX_DOCS = 15
 
 ### Load in CSS here for components that need custom styling. ###
 
